@@ -1,0 +1,16 @@
+{	
+	"BundleType": "Application",
+	"BundleIdentifier": "powerhour",
+	"AcceptedLinkTypes":[
+		"playlist"
+	],
+	"AppIcon": {
+		"36x18": "tutorial.png"
+	},
+	"AppName": {
+		"en": "Power Hour"
+	},
+	"SupportedLanguages": [
+		"en"
+	]
+}

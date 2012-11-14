@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   	<meta charset="utf-8">
+   	<title>Power Hour</title>
+   	<link rel="stylesheet" href="sp://import/css/adam.css">
+   	<link rel="stylesheet" href="powerhour.css">
+      <link rel="stylesheet" href="jqueryui/css/trontastic/jquery-ui-1.9.1.custom.js">
+      <script src="jqueryui/js/jquery-1.8.2.js"></script>
+      <script src="jqueryui/js/jquery-ui-1.9.1.custom.js"></script>
+   </head>
+   <body onload="sp = getSpotifyApi(1); powerhour = sp.require('powerhour'); powerhour.init();">
+      <script>
+         function drop() {
+            alert("hi");
+            $("#playlist_box").val("soup");
+            var playlist_uri = $("#playlist_box").val();
+            var playlist_info = powerhour.playlist_info(playlist_uri);
+            $("#playlist_box").val("soup");
+            alert(playlist_info);
+         }
+      </script>
+      <h1 id="header">Select a playlist and number of rounds</h1>
+      <input id="rounds" type="text" style="width:40px" value="60"/>
+      <div id="drag_playlist_here" onclick="drop();" style="height:30px; background-color:blue;">
+         Drag Playlist Here
+      </div>
+      <input id="playlist_val" type="text" value="spotify:user:124799051:playlist:2jLWDJQ3K3vFMWwthPgjRT" style="width:600px;"/>
+
+      <div id="drag_container" ondrop="drop()" style="height:400px; width:600px;">
+
+         <input id="playlist_box" ondrop="drop()" style="background-color:#4FDB80; color:#006075; font-size:3em; height:400px; width:600px; margin-top:10px; display:inline; float:right"/>
+
+      </div>
+
+      <br/>
+      <button id="start" style="height:50px; background-color:red; width:100px; margin-top:10px;">
+         START
+      </button>
+
+      <div id="song_title"></div>
+   <script>
+      $(function() { 
+         $("button").button()
+                    .click(function() { powerhour.start_with_url($("#playlist_val").val()); });
+      });
+      //var box = document.querySelector("#playlist_box");
+      //box.addEventListener('drop', drop, false);
+      $("#hidden_input").mouseup(drop);
+
+
+            var addEvent = (function () {
+            if (document.addEventListener) {
+            return function (el, type, fn) {
+            if (el && el.nodeName || el === window) {
+            el.addEventListener(type, fn, false);
+            } else if (el && el.length) {
+            for (var i = 0; i < el.length; i++) {
+            addEvent(el[i], type, fn);
+            }
+            }
+            };
+            } else {
+            return function (el, type, fn) {
+            if (el && el.nodeName || el === window) {
+            el.attachEvent('on' + type, function () { return fn.call(el, window.event); });
+            } else if (el && el.length) {
+            for (var i = 0; i < el.length; i++) {
+            addEvent(el[i], type, fn);
+            }
+            }
+            };
+            }
+            })();
+
+
+      addEvent($("#playlist_box"), 'drop', function (e) {
+       if (e.preventDefault) e.preventDefault(); // stops the browser from redirecting off to the text.
+       drop();
+      });
+
+   </script>
+   </body>
+</html>
